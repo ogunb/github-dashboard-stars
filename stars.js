@@ -13,7 +13,7 @@ async function stars() {
     const list = starsContainer.querySelector('#github_stars_extension_list');
     for (let star of stars) {
       const starElement = generateStarHtml(star);
-      list.insertAdjacentHTML('afterbegin', starElement);
+      list.insertAdjacentHTML('beforeend', starElement);
     }
 
     reposContainer.insertAdjacentElement('afterend', starsContainer);
@@ -22,7 +22,7 @@ async function stars() {
 
 async function fetchUserStars() {
   const user = getUser();
-  const response = await fetch(`https://api.github.com/users/${user}/starred?per_page=10`);
+  const response = await fetch(`https://api.github.com/users/${user}/starred?per_page=10&sort=created`);
   const data = await response.json();
   return data;
 }
