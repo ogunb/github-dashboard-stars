@@ -1,23 +1,26 @@
+let retryCount = 0;
 let interval = setInterval(() => {
-  requestIdleCallback(stars);
-}, 500);
-
-async function stars() {
   const reposContainer = document.querySelector('[aria-label="Repositories"]');
 
-  if (reposContainer !== null) {
+  if (retryCount > 10 || reposContainer !== null) {
     clearInterval(interval);
-
-    const stars = await fetchUserStars();
-    const starsContainer = createStarsContainer(reposContainer);
-    const list = starsContainer.querySelector('#github_stars_extension_list');
-    for (let star of stars) {
-      const starElement = generateStarHtml(star);
-      list.insertAdjacentHTML('beforeend', starElement);
-    }
-
-    reposContainer.insertAdjacentElement('afterend', starsContainer);
   }
+
+  if (reposContainer !== null) {
+    requestIdleCallback(() => stars(reposContainer));
+  }
+}, 500);
+
+async function stars(reposContainer) {
+  const stars = await fetchUserStars();
+  const starsContainer = createStarsContainer(reposContainer);
+  const list = starsContainer.querySelector('#github_stars_extension_list');
+  for (let star of stars) {
+    const starElement = generateStarHtml(star);
+    list.insertAdjacentHTML('beforeend', starElement);
+  }
+
+  reposContainer.insertAdjacentElement('afterend', starsContainer);
 }
 
 async function fetchUserStars() {
