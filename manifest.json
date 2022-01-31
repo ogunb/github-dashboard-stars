@@ -5,7 +5,7 @@
   "manifest_version": 3,
   "content_scripts": [
     {
-      "matches": ["*://*.github.com/*"],
+      "matches": ["*://*.github.com/"],
       "js": ["stars.js"]
     }
   ],
