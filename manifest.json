@@ -1,0 +1,13 @@
+{
+  "name": "Github Dashboard Stars",
+  "description": "Adds your stars to github dashboard.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["*://*.github.com/*"],
+      "js": ["stars.js"]
+    }
+  ],
+  "host_permissions": ["https://github.com/"]
+}
