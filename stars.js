@@ -9,6 +9,8 @@ let interval = setInterval(() => {
   if (reposContainer !== null) {
     requestIdleCallback(() => stars(reposContainer));
   }
+  
+  retryCount++
 }, 500);
 
 async function stars(reposContainer) {
