@@ -46,9 +46,7 @@ function createStarsContainer(reposContainer) {
   container.classList.value = `${reposContainer.classList.value} border-top my-2`;
   container.id = 'github_stars_extension_container';
 
-  const heading = document.createElement('h2');
-  heading.classList.value = 'mb-1 f5 mt-md-3';
-  heading.textContent = 'Stars';
+  const heading = createHeading();
 
   const list = document.createElement('ul');
   list.classList.value = 'list-style-none';
@@ -58,6 +56,20 @@ function createStarsContainer(reposContainer) {
   container.appendChild(list);
 
   return container;
+}
+
+function createHeading() {
+  const heading = document.createElement('h2');
+  heading.classList.value = 'mb-1 f5 mt-md-3';
+
+  const starsLink = document.createElement('a');
+  starsLink.href = `/${getUser()}?tab=stars`;
+  starsLink.classList.value = 'Link--primary no-underline d-inline-block';
+  starsLink.textContent = 'Stars';
+
+  heading.appendChild(starsLink);
+
+  return heading;
 }
 
 function generateStarHtml({ visibility, html_url, owner: { avatar_url, login }, name, description }) {
